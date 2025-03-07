@@ -8,7 +8,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-conn = MongoClient("")
+conn = MongoClient("mongodb+srv://ydsb2002:2YjpQmDo83rDYpLT@project1.txrk6.mongodb.net")
 
 @app.get("/",response_class=HTMLResponse)
 async def read_root(request: Request):
