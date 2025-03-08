@@ -16,11 +16,12 @@ async def read_root(request: Request):
     for doc in docs:
         newDocs.append({
             "id": doc["_id"],
-            "note": doc["note"]
+            "title": doc["title"],
+            "desc" : doc["desc"],
         })
     return templates.TemplateResponse("index.html", {"request": request, "newDocs": newDocs})
 
-@note.post("/")
-async def add_note(note: Note):
-    inserted_note = conn.notes.notes.insert_one(dict(note))
-    return noteEntity(inserted_note)
+@note.post("/",response_class=HTMLResponse)
+async def create_item(request: Request):
+    pass
+   
