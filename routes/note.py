@@ -18,10 +18,14 @@ async def read_root(request: Request):
             "id": doc["_id"],
             "title": doc["title"],
             "desc" : doc["desc"],
+            "important": doc["important"]
         })
     return templates.TemplateResponse("index.html", {"request": request, "newDocs": newDocs})
 
-@note.post("/",response_class=HTMLResponse)
+@note.post("/")
 async def create_item(request: Request):
-    pass
-   
+    form = await request.form()
+    formDict = dict(form)
+    formDict["important"] = True if formDict["important"] == "on" else False
+    note = conn.notes.notes.insert_one(formDict)
+    return {"Success":True}   
